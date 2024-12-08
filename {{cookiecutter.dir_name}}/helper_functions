@@ -1,0 +1,56 @@
+#!/bin/bash
+
+# https://sipb.mit.edu/doc/safe-shell/
+set -euf -o pipefail
+
+# https://stackoverflow.com/questions/2853803/in-a-shell-script-echo-shell-commands-as-they-are-executed
+# set -x
+
+# http://redsymbol.net/articles/unofficial-bash-strict-mode/
+IFS=$'\n\t'
+
+# Other useful conventions and resources:
+# https://dev.to/thiht/shell-scripts-matter
+# http://bash3boilerplate.sh/
+# https://github.com/progrium/bashstyle
+# https://github.com/kward/shunit2
+
+# --- Helper scripts begin ---
+
+usage() {
+    grep '^#/' "$0" | cut -c4-
+    exit 0
+}
+
+cecho() {
+    # https://linuxcommand.org/lc3_adv_tput.php
+    echo "$(tput setab 4)$(tput setaf 7)$1 $(tput sgr0)"
+}
+
+LOG_FILE="/tmp/$(basename "$0").log"
+DATE_FORMAT="%Y-%m-%d %H:%M:%S.%N"
+info() {
+    echo "$(tput setab 4)$(tput setaf 7)[$(date +$DATE_FORMAT)] [INFO]    $*$(tput sgr0)" | tee -a "$LOG_FILE" >&2
+}
+error() {
+    echo "$(tput setab 1)$(tput setaf 7)[$(date +$DATE_FORMAT)] [ERROR]    $*$(tput sgr0)" | tee -a "$LOG_FILE" >&2
+}
+# --- Helper scripts end ---
+
+
+# Code begins here...
+main() {
+
+    info "Info"
+    error "Error"
+    echo "Test after"
+
+    return
+}
+
+expr "$*" : ".*--help" >/dev/null && usage
+trap cleanup EXIT
+
+if [ "${BASH_SOURCE[0]}" = "$0" ]; then
+    main "$@"
+fi

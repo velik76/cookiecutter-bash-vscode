@@ -1,0 +1,17 @@
+{
+  "editor.formatOnSave": true,
+  "editor.fontSize": 16,
+  "editor.tabSize": 4,
+  "terminal.integrated.fontSize":16,
+  // "window.zoomLevel": 1,
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+
+  // Shell script settings
+  "[shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format",
+    "editor.formatOnSave": true,
+    "editor.lineNumbers": "on",
+    "editor.autoIndent": "advanced"
+  },
+}

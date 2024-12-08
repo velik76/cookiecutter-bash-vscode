@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# shellcheck disable=SC1091
+source helper_functions.sh
+
+main() {
+
+    info "Hello world!"
+
+    return
+}
+
+if [[ "${BASH_SOURCE[0]}" = "$0" ]]; then
+    main "$@"
+fi
